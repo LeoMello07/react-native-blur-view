@@ -1,20 +1,43 @@
 package com.blurview
 
-import android.graphics.Color
-import android.view.View
-import com.facebook.react.uimanager.SimpleViewManager
+import com.facebook.react.uimanager.ViewGroupManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class BlurViewViewManager : SimpleViewManager<View>() {
-  override fun getName() = "BlurViewView"
+class BlurViewViewManager : ViewGroupManager<BlurView>() {
 
-  override fun createViewInstance(reactContext: ThemedReactContext): View {
-    return View(reactContext)
-  }
+    override fun getName() = "BlurView"
 
-  @ReactProp(name = "color")
-  fun setColor(view: View, color: String) {
-    view.setBackgroundColor(Color.parseColor(color))
-  }
+    override fun createViewInstance(reactContext: ThemedReactContext): BlurView {
+        return BlurView(reactContext)
+    }
+
+    override fun getExportedCustomDirectEventTypeConstants(): MutableMap<String, Any>? {
+        return mutableMapOf()
+    }
+
+    @ReactProp(name = "blurIntensity", defaultDouble = 10.0)
+    fun setBlurIntensity(view: BlurView, value: Double) {
+        view.setBlurIntensity(value)
+    }
+
+    @ReactProp(name = "saturationIntensity", defaultFloat = 1f)
+    fun setSaturationIntensity(view: BlurView, value: Float) {
+        view.setSaturationIntensity(value)
+    }
+
+    @ReactProp(name = "fadePercent", defaultFloat = 0f)
+    fun setFadePercent(view: BlurView, value: Float) {
+        view.setFadePercent(value)
+    }
+
+    @ReactProp(name = "fadeStyle")
+    fun setFadeStyle(view: BlurView, value: String?) {
+        view.setFadeStyle(value)
+    }
+
+    @ReactProp(name = "blurStyle")
+    fun setBlurStyle(view: BlurView, value: String?) {
+        view.setBlurStyle(value)
+    }
 }

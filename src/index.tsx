@@ -1,4 +1,11 @@
-import { requireNativeComponent, UIManager, Platform, type ViewStyle, type StyleProp } from "react-native";
+// src/index.tsx
+import {
+  Platform,
+  requireNativeComponent,
+  UIManager,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
 
 const LINKING_ERROR =
   `The package 'react-native-blur-view' doesn't seem to be linked. Make sure: \n\n` +
@@ -6,8 +13,15 @@ const LINKING_ERROR =
   "- You rebuilt the app after installing the package\n" +
   "- You are not using Expo Go\n";
 
-export type BlurViewStyle = 'plain' | 'extraLight' | 'light' | 'dark' | 'regular' | 'prominent';
-export type FadeStyle = 'top' | 'bottom' | 'left' | 'right';
+export type BlurViewStyle =
+  | "plain"
+  | "extraLight"
+  | "light"
+  | "dark"
+  | "regular"
+  | "prominent";
+
+export type FadeStyle = "top" | "bottom" | "left" | "right";
 
 export type BlurViewProps = {
   blurStyle?: BlurViewStyle;
@@ -16,6 +30,7 @@ export type BlurViewProps = {
   fadePercent?: number;
   fadeStyle?: FadeStyle;
   style?: StyleProp<ViewStyle>;
+  children?: React.ReactNode;
 };
 
 const ComponentName = "BlurView";
@@ -24,5 +39,5 @@ export const BlurView =
   UIManager.getViewManagerConfig(ComponentName) != null
     ? requireNativeComponent<BlurViewProps>(ComponentName)
     : () => {
-      throw new Error(LINKING_ERROR);
-    };
+        throw new Error(LINKING_ERROR);
+      };
